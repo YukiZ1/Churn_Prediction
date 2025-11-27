@@ -1,15 +1,20 @@
 import boto3
 import joblib
 import pandas as pd
+import os
+from dotenv import load_dotenv
 from pyspark.context import SparkContext
 from pyspark.sql import SparkSession
 from pyspark.sql.types import StructType, StructField, StringType, DoubleType, IntegerType
 from pyspark.sql.functions import current_date
 from io import BytesIO
 
+# Load environment variables from .env file
+load_dotenv()
+
 # --- CONFIGURATION ---
-BUCKET = 'churn-prediction-bucket-91645758-7495-485b-9f19-413d2acdfb02'
-MODEL_KEY = 'models/churn_prediction_pipeline.joblib'
+BUCKET = os.getenv('CHURN_PREDICTION_BUCKET')
+MODEL_KEY = os.getenv('MODEL_KEY', 'models/churn_prediction_pipeline.joblib')
 INPUT_DATA_PATH = f's3://{BUCKET}/raw-input/'
 OUTPUT_DATA_PATH = f's3://{BUCKET}/pred_output/'
 LOCAL_MODEL_PATH = '/tmp/model.joblib'

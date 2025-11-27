@@ -1,13 +1,19 @@
 import boto3
 import time
+import os
+from dotenv import load_dotenv
 
-Glue_asset_bucket = 'aws-glue-assets-596603735137-us-east-1'
-glue_script_key = 'churn-predict-script/glue_script.py'
+# Load environment variables from .env file
+load_dotenv()
+
 # Initialize Glue Client
-glue = boto3.client('glue', region_name='us-east-1')
+glue = boto3.client('glue', region_name=os.getenv('AWS_REGION', 'us-east-1'))
 
-JOB_NAME = 'churn-prediction-inference-job'
-ROLE_ARN = 'arn:aws:iam::596603735137:role/AWSGlueServiceRole_churn'  # Replace with your actual Role ARN
+# Configuration from environment variables
+Glue_asset_bucket = os.getenv('GLUE_ASSET_BUCKET')
+glue_script_key = os.getenv('GLUE_SCRIPT_KEY')
+JOB_NAME = os.getenv('JOB_NAME')
+ROLE_ARN = os.getenv('GLUE_ROLE_ARN')
 SCRIPT_LOCATION = f's3://{Glue_asset_bucket}/{glue_script_key}'
 TEMP_DIR = f's3://{Glue_asset_bucket}/tmp/'
 
