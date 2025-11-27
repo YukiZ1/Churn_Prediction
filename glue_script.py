@@ -19,7 +19,7 @@ THRESHOLD = 0.5
 sc = SparkContext()
 spark = SparkSession(sc)
 
-# 2. Download Model from S3 to Local Driver/Worker
+# 2. Download pipeline Model from S3 to Local Driver/Worker
 # Note: In Glue, we download to /tmp/ which is accessible
 s3 = boto3.client('s3')
 obj = s3.get_object(Bucket=BUCKET, Key=MODEL_KEY)
