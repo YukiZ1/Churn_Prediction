@@ -3,6 +3,7 @@ name = "churn-prediction"
 version = "0.1.0"
 requires-python = ">=3.10"
 dependencies = [
+    "boto3>=1.41.5",
     "jupyterlab>=4.5.0",
     "matplotlib>=3.10.7",
     "missingno>=0.5.2",
@@ -11,4 +12,9 @@ dependencies = [
     "scikit-learn>=1.7.2",
     "seaborn>=0.13.2",
     "xgboost>=3.1.2",
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.1.0",
 ]
